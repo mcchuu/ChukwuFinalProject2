@@ -8,4 +8,4 @@ instuctions
 - download and open finalProject2.html in a browser.
 - enter a message into the input field.
 - select a shift number, direction, and action.
-- click the Submit button to veiw result.
+- click the Submit button to view result.
