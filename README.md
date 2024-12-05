@@ -5,7 +5,7 @@ users have the ability to select the shift amount, shift direction, and whether 
 
 
 instuctions
-- download and ChukwuFinalProject2.html in a browser.
+- download and open FinalProject2.html in a browser.
 - enter a message into the input field.
 - select a shift number, direction, and action.
 - click the Submit button to veiw result.
