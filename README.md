@@ -1,4 +1,4 @@
-Final Project 02 - Caesar Cipher Website
+Final Project 2 - Caesar Cipher Website
 
 This website uses the Caesar cipher formula to shift the letters of the message provided by the user. users have the ability to select the shift amount, shift direction, and whether to encrypt or decrypt the message.
 
