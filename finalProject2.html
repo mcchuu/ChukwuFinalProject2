@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Ceasar Cipher</title>
+    <h1> Encrypt / Decrypt a Message</h1><h4>using the Caesar cipher</h4>
+</head>
+        
+<!-- styling properties for website appearance / layout and user-friendly interface -->
+<style>
+    /* properties for container div */
+    div {
+        background-color: #c5d5eb88;
+        margin: auto;
+        border-radius: 10px;
+        padding: 20px;
+        max-width: 400px;
+        text-align: center;
+    }
+
+    /* properties for input, select dropdown, submit button */
+    input,
+    select,
+    button {
+        margin: 6px;
+        border-radius: 5px;
+        border: 1px solid lightgray;
+    }
+</style>
+
+<body style='text-align: center;'>
+    <div>
+        <!-- user message input -->
+        <p><strong>Enter a message</strong></p>
+        <input id='message'><br><br>
+
+        <!-- position number to shift input, from 1-26 inclusivly -->
+        <label>Shift Number:</label>
+        <input id='shift' type='number' style='max-width: 30px;' min='1' max='26'><br>
+
+        <!-- left or right shift direction dropdown input -->
+        <label>Shift Direction:</label>
+        <select id='direction'>
+            <option value='left'>left</option>
+            <option value='right'>right</option>
+        </select>
+        <br>
+
+        <!-- encrypt or decrypt action dropdown input -->
+        <label>Choose Action:</label>
+        <select id='action'>
+            <option value='encrypt'>encrypt</option>
+            <option value='decrypt'>decrypt</option>
+        </select><br>
+        <br>
+
+        <!-- submit button to trigger main cipher function -->
+        <button onclick='cipher()'>Submit</button><br><br>
+
+        <h2>Output:</h2><br>
+        <div id='output'></div>
+    </div>
+</body>
+
+<script>
+    // main function to validate input and output processed message
+    function cipher() {
+
+        // gets user input value from document, assign to variables
+        let message = document.getElementById('message').value;
+        let shift = parseInt(document.getElementById('shift').value);
+        let direction = document.getElementById('direction').value;
+        let action = document.getElementById('action').value;
+
+        // validates message and shift number input, else alert user
+        if (!message || isNaN(shift)) {
+            window.alert('Please provide a valid message and shift number.');
+            return;
+        }
+
+        // pass validated input variables in cipherProcess as parameters, assign to output variable
+        let output = cipherProcess(message, shift, direction, action);
+
+        // display processed message output 
+        document.getElementById('output').textContent = output;
+    }
+
+    /** function to take user message, number of positions to shift, shift direction,
+    action as parameters to perform calculations, returns processed message.*/
+    function cipherProcess(message, shift, direction, action) {
+        
+        let messageShifted = ''; // initialize empty string to store messageShifted
+
+        // adjust shift for decryption, reverse shift
+        if (action == 'decrypt') {
+            shift = -shift;
+        }
+
+        // adjust shift for left direction: reverse shift
+        if (direction == 'left') {
+            shift = -shift;
+        }
+
+        // iterate through each message input character to perform cipher calculation
+        for (let i = 0; i < message.length; i++) {
+            let char = message[i]; // assigns current character at index i to char variable
+
+            // check if character is lower or upper letter a-z, else append to messageShifted without shift
+            if (char.match(/[a-zA-Z]/)) {
+                // determine character ASCII offset, 65 for uppercase and 97 for lowercase
+                let offset = char === char.toUpperCase() ? 65 : 97;
+
+                /* calculate new character ASCII code after shift using Caesar cipher formula: 
+                character = (letter index + shift number) % 26 */
+                let charShifted = String.fromCharCode(
+                    ((char.charCodeAt(0) - offset + shift) % 26 + 26) % 26 + offset);
+
+                // append shifted character to messageShifted
+                messageShifted += charShifted;
+            } 
+            else {
+                messageShifted += char;
+            }
+        }
+        return messageShifted;
+    }
+</script>
+</html>
